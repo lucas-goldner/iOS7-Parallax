@@ -9,12 +9,12 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    //@IBOutlet weak var mainView: UIView!
-    //@IBOutlet weak var mainImage: UIImageView!
-    //@IBOutlet weak var firstAnswerBox: UIView!
-    //@IBOutlet weak var secondAnswerBox: UIView!
-    //@IBOutlet weak var thirdAnswerBox: UIView!
-    //@IBOutlet weak var answerBox: UIView!
+    @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var mainImage: UIImageView!
+    @IBOutlet weak var firstAnswerBox: UIView!
+    @IBOutlet weak var secondAnswerBox: UIView!
+    @IBOutlet weak var thirdAnswerBox: UIView!
+    @IBOutlet weak var answerBox: UIView!
 
     
     override func viewDidLoad() {
@@ -24,20 +24,20 @@ class ViewController: UIViewController {
         //mainImage.layer.masksToBounds = true
         //mainImage.layer.cornerRadius = 30
         //mainImage.layer.cornerCurve = .continuous
-        //makeRoundedAndBeautiful(view: mainView)
-        //makeRoundedAndBeautiful(view: firstAnswerBox)
-        //makeRoundedAndBeautiful(view: secondAnswerBox)
-        //makeRoundedAndBeautiful(view: thirdAnswerBox)
-        //makeRoundedAndBeautiful(view: answerBox)
+        makeRoundedAndBeautiful(view: mainView)
+        makeRoundedAndBeautiful(view: firstAnswerBox)
+        makeRoundedAndBeautiful(view: secondAnswerBox)
+        makeRoundedAndBeautiful(view: thirdAnswerBox)
+        makeRoundedAndBeautiful(view: answerBox)
     
-        //addParallaxToView(view: mainView, amount: 20)
-        //addShadowParallaxToView(view: mainView, amount: 20)
-        //addParallaxToView(view: firstAnswerBox, amount: 20)
-        //addShadowParallaxToView(view: firstAnswerBox, amount: 20)
-        //addParallaxToView(view: secondAnswerBox, amount: 20)
-        //addShadowParallaxToView(view: secondAnswerBox, amount: 20)
-        //addParallaxToView(view: thirdAnswerBox, amount: 20)
-        //addShadowParallaxToView(view: thirdAnswerBox, amount: 20)
+        addParallaxToView(view: mainView, amount: 20)
+        addShadowParallaxToView(view: mainView, amount: 20)
+        addParallaxToView(view: firstAnswerBox, amount: 20)
+        addShadowParallaxToView(view: firstAnswerBox, amount: 20)
+        addParallaxToView(view: secondAnswerBox, amount: 20)
+        addShadowParallaxToView(view: secondAnswerBox, amount: 20)
+        addParallaxToView(view: thirdAnswerBox, amount: 20)
+        addShadowParallaxToView(view: thirdAnswerBox, amount: 20)
  
     }
 }
