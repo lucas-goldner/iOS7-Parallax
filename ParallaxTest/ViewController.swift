@@ -13,17 +13,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var mainImage: UIImageView!
     @IBOutlet weak var mainQuestion: UILabel!
     @IBOutlet weak var firstAnswerBox: UIView!
+    @IBOutlet weak var firstAnswerLabel: UILabel!
     @IBOutlet weak var secondAnswerBox: UIView!
+    @IBOutlet weak var secondAnswerLabel: UILabel!
     @IBOutlet weak var thirdAnswerBox: UIView!
+    @IBOutlet weak var thirdAnswerLabel: UILabel!
     @IBOutlet weak var answerBox: UIView!
     @IBOutlet weak var ALabel: UILabel!
     @IBOutlet weak var BLabel: UILabel!
     @IBOutlet weak var CLabel: UILabel!
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //Round all views
         mainImage.roundCornersForAspectFit(radius: 30)
         makeRoundedAndBeautiful(view: mainQuestion, shadowColor: UIColor.black)
         makeRoundedAndBeautiful(view: mainView, shadowColor: UIColor.systemGreen)
@@ -31,7 +36,16 @@ class ViewController: UIViewController {
         makeRoundedAndBeautiful(view: secondAnswerBox,  shadowColor: UIColor.systemPink)
         makeRoundedAndBeautiful(view: thirdAnswerBox,  shadowColor: UIColor.systemPink)
         makeRoundedAndBeautiful(view: answerBox,  shadowColor: UIColor.systemPink)
+        
+        //Style labels
+        styleLabels(label: ALabel, size: 30.0)
+        styleLabels(label: BLabel, size: 30.0)
+        styleLabels(label: CLabel, size: 30.0)
+        styleLabels(label: firstAnswerLabel, size: 20.0)
+        styleLabels(label: secondAnswerLabel, size: 20.0)
+        styleLabels(label: thirdAnswerLabel, size: 20.0)
     
+        //Apply magic parallax effect
         addParallaxToView(view: mainImage, amount: 20)
         addShadowParallaxToView(view: mainImage, amount: 20)
         addParallaxToView(view: mainView, amount: 20)
@@ -44,7 +58,18 @@ class ViewController: UIViewController {
         addShadowParallaxToView(view: secondAnswerBox, amount: 20)
         addParallaxToView(view: thirdAnswerBox, amount: 20)
         addShadowParallaxToView(view: thirdAnswerBox, amount: 20)
- 
+        addParallaxToView(view: ALabel, amount: 20)
+        addShadowParallaxToView(view: ALabel, amount: 20)
+        addParallaxToView(view: BLabel, amount: 20)
+        addShadowParallaxToView(view: BLabel, amount: 20)
+        addParallaxToView(view: CLabel, amount: 20)
+        addShadowParallaxToView(view: CLabel, amount: 20)
+        addParallaxToView(view: firstAnswerLabel, amount: 20)
+        addShadowParallaxToView(view: firstAnswerLabel, amount: 20)
+        addParallaxToView(view: secondAnswerLabel, amount: 20)
+        addShadowParallaxToView(view: secondAnswerLabel, amount: 20)
+        addParallaxToView(view: thirdAnswerLabel, amount: 20)
+        addShadowParallaxToView(view: thirdAnswerLabel, amount: 20)
     }
 }
 
@@ -100,6 +125,14 @@ func addShadowParallaxToView(view: UIView, amount: Float) {
     }
 }
 
+func styleLabels(label: UILabel, size: Double) {
+    label.font = UIFont.systemFont(ofSize: size)
+    label.layer.masksToBounds = false
+    label.layer.shadowRadius = 2.0
+    label.layer.shadowOpacity = 0.35
+    label.layer.shadowOffset = CGSize(width: 1, height: 2)
+}
+
 extension UIImageView {
 func roundCornersForAspectFit(radius: CGFloat)
 {
@@ -121,3 +154,4 @@ func roundCornersForAspectFit(radius: CGFloat)
         }
     }
 }
+
