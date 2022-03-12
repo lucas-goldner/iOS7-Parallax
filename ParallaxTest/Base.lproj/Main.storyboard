@@ -17,14 +17,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LtD-V0-SJh">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LtD-V0-SJh">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lTi-8T-uAY">
                                         <rect key="frame" x="8" y="43" width="398" height="250"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Dog" translatesAutoresizingMaskIntoConstraints="NO" id="8BE-o3-Zut">
+                                                <rect key="frame" x="19" y="9" width="162" height="233"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What race is this dog?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Amc-fS-p3T">
+                                                <rect key="frame" x="216" y="20" width="169" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
                                         <color key="backgroundColor" systemColor="systemGreenColor"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Amc-fS-p3T" secondAttribute="trailing" constant="13" id="Cln-Gd-EOS"/>
+                                            <constraint firstItem="Amc-fS-p3T" firstAttribute="top" secondItem="lTi-8T-uAY" secondAttribute="top" constant="20" symbolic="YES" id="Mzq-7L-ZcI"/>
                                             <constraint firstAttribute="height" constant="250" id="V0Y-T4-phl"/>
+                                            <constraint firstAttribute="bottom" secondItem="Amc-fS-p3T" secondAttribute="bottom" constant="209" id="Z1y-Xi-StK"/>
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="c33-dV-jWc">
@@ -122,8 +137,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="ALabel" destination="eip-6C-Lep" id="OUt-L3-0Ut"/>
+                        <outlet property="BLabel" destination="Oso-HN-Oce" id="fus-XA-ecY"/>
+                        <outlet property="CLabel" destination="bvM-wc-fpw" id="isY-Hj-DcJ"/>
                         <outlet property="answerBox" destination="dga-ja-Ube" id="vav-sc-V2G"/>
                         <outlet property="firstAnswerBox" destination="6zG-NE-AeG" id="IjC-08-mrY"/>
+                        <outlet property="mainImage" destination="8BE-o3-Zut" id="ord-fg-ETH"/>
+                        <outlet property="mainQuestion" destination="Amc-fS-p3T" id="j26-qJ-uwT"/>
                         <outlet property="mainView" destination="lTi-8T-uAY" id="aCr-GB-PWl"/>
                         <outlet property="secondAnswerBox" destination="ENX-VA-A16" id="rAq-Wy-BQP"/>
                         <outlet property="thirdAnswerBox" destination="stg-nz-H4c" id="UNc-6P-DU7"/>
@@ -135,6 +155,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Dog" width="1607" height="2048"/>
         <systemColor name="secondarySystemGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
