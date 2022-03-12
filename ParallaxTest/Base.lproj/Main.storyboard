@@ -20,6 +20,25 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LtD-V0-SJh">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dga-ja-Ube">
+                                        <rect key="frame" x="8" y="728" width="398" height="125"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drag inside me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kaR-CD-tmI">
+                                                <rect key="frame" x="8" y="8" width="382" height="109"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="kaR-CD-tmI" secondAttribute="trailing" constant="8" id="CRB-7Q-P8h"/>
+                                            <constraint firstItem="kaR-CD-tmI" firstAttribute="leading" secondItem="dga-ja-Ube" secondAttribute="leading" constant="8" id="JhS-95-dPx"/>
+                                            <constraint firstAttribute="height" constant="125" id="X2w-so-ARY"/>
+                                            <constraint firstAttribute="bottom" secondItem="kaR-CD-tmI" secondAttribute="bottom" constant="8" id="hiQ-ed-XK2"/>
+                                            <constraint firstItem="kaR-CD-tmI" firstAttribute="top" secondItem="dga-ja-Ube" secondAttribute="top" constant="8" id="wzY-xd-R5P"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lTi-8T-uAY">
                                         <rect key="frame" x="8" y="43" width="398" height="250"/>
                                         <subviews>
@@ -141,13 +160,6 @@
                                             </view>
                                         </subviews>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dga-ja-Ube">
-                                        <rect key="frame" x="8" y="728" width="398" height="125"/>
-                                        <color key="backgroundColor" systemColor="systemPinkColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="125" id="X2w-so-ARY"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="rLp-vz-2gl" firstAttribute="leading" secondItem="cDI-fH-MEs" secondAttribute="leading" constant="8" id="4Lw-sg-pO3"/>

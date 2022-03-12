@@ -22,11 +22,32 @@ class ViewController: UIViewController {
     @IBOutlet weak var ALabel: UILabel!
     @IBOutlet weak var BLabel: UILabel!
     @IBOutlet weak var CLabel: UILabel!
-    
-    
+    var firstAnswerBoxPosition = CGPoint(x: 0, y: 0)
+    var secondAnswerBoxPosition = CGPoint(x: 0, y: 0)
+    var thirdAnswerBoxPosition = CGPoint(x: 0, y: 0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.firstAnswerBoxPosition = CGPoint(x: firstAnswerBox.layer.position.x - 20, y: firstAnswerBox.layer.position.y)
+        self.secondAnswerBoxPosition = CGPoint(x: secondAnswerBox.layer.position.x - 20, y: secondAnswerBox.layer.position.y)
+        self.thirdAnswerBoxPosition = CGPoint(x: thirdAnswerBox.layer.position.x - 20, y: thirdAnswerBox.layer.position.y)
+        
+        //Add drag behaviour
+        firstAnswerBox.tag = 1
+        secondAnswerBox.tag = 2
+        thirdAnswerBox.tag = 3
+        var panGestureOne = UIPanGestureRecognizer()
+        panGestureOne = UIPanGestureRecognizer(target: self, action: #selector(draggedView(_:)))
+        firstAnswerBox.isUserInteractionEnabled = true
+        firstAnswerBox.addGestureRecognizer(panGestureOne)
+        var panGestureTwo = UIPanGestureRecognizer()
+        panGestureTwo = UIPanGestureRecognizer(target: self, action: #selector(draggedView(_:)))
+        secondAnswerBox.isUserInteractionEnabled = true
+        secondAnswerBox.addGestureRecognizer(panGestureTwo)
+        var panGestureThree = UIPanGestureRecognizer()
+        panGestureThree = UIPanGestureRecognizer(target: self, action: #selector(draggedView(_:)))
+        thirdAnswerBox.isUserInteractionEnabled = true
+        thirdAnswerBox.addGestureRecognizer(panGestureThree)
         
         //Round all views
         mainImage.roundCornersForAspectFit(radius: 30)
@@ -71,66 +92,92 @@ class ViewController: UIViewController {
         addParallaxToView(view: thirdAnswerLabel, amount: 20)
         addShadowParallaxToView(view: thirdAnswerLabel, amount: 20)
     }
-}
-
-func makeRoundedAndBeautiful(view: UIView, shadowColor: UIColor){
-    view.layer.masksToBounds = false
-    view.layer.cornerRadius = 30
-    view.layer.cornerCurve = .continuous
-    view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
-    view.layer.shadowColor = shadowColor.cgColor
-    view.layer.shadowOffset = CGSize(width: 0, height: 1)
-    view.layer.shadowRadius = 15
-    view.layer.shadowOpacity = 0.7
-}
-
-
-func addParallaxToView(view: UIView, amount: Float) {
-    let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
-    horizontal.minimumRelativeValue = -amount
-    horizontal.maximumRelativeValue = amount
-
-    let vertical = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
-    vertical.minimumRelativeValue = -amount
-    vertical.maximumRelativeValue = amount
-
-    let group = UIMotionEffectGroup()
-    group.motionEffects = [horizontal, vertical]
-    view.addMotionEffect(group)
     
-    NotificationCenter.default.addObserver(forName:  Notification.Name(rawValue: "UpdateParallax") , object: nil, queue: .main) { notification in
-        UIView.animate(withDuration: 0.25) {
-            view.removeMotionEffect(group)
+    @objc func draggedView(_ sender: UIPanGestureRecognizer){
+        self.view.bringSubviewToFront(sender.view!)
+        let translation = sender.translation(in: self.view)
+        sender.view?.center = CGPoint(x: (sender.view?.center.x)! + translation.x, y: (sender.view?.center.y)! + translation.y)
+        sender.setTranslation(CGPoint.zero, in: self.view)
+        print(sender.view?.layer.position)
+        
+        if(answerBox.layer.position.y <= 400 + firstAnswerBox.layer.position.y){
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            sender.view?.layer.position = self.firstAnswerBoxPosition
+            self.showToast(message: "Wrong answer", font: .systemFont(ofSize: 20.0))
+        } else if(answerBox.layer.position.y <= 475 + secondAnswerBox.layer.position.y){
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            sender.view?.layer.position = self.firstAnswerBoxPosition
+            self.showToast(message: "Correct!", font: .systemFont(ofSize: 20.0))
+        } else if(answerBox.layer.position.y <= 515 + thirdAnswerBox.layer.position.y){
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            sender.view?.layer.position = self.firstAnswerBoxPosition
+            self.showToast(message: "Wrong answer", font: .systemFont(ofSize: 20.0))
+        }
+        
+        if(sender.state == .ended){
+            sender.view?.layer.position = self.firstAnswerBoxPosition
         }
     }
-}
-
-func addShadowParallaxToView(view: UIView, amount: Float) {
-    let horizontal = UIInterpolatingMotionEffect(keyPath: "layer.shadowOffset.width", type: .tiltAlongHorizontalAxis)
-    horizontal.minimumRelativeValue = amount
-    horizontal.maximumRelativeValue = -amount
-
-    let vertical = UIInterpolatingMotionEffect(keyPath: "layer.shadowOffset.height", type: .tiltAlongVerticalAxis)
-    vertical.minimumRelativeValue = amount
-    vertical.maximumRelativeValue = -amount
-
-    let group = UIMotionEffectGroup()
-    group.motionEffects = [horizontal, vertical]
-    view.addMotionEffect(group)
     
-    NotificationCenter.default.addObserver(forName:  Notification.Name(rawValue: "UpdateParallax") , object: nil, queue: .main) { notification in
-        UIView.animate(withDuration: 0.25) {
-            view.removeMotionEffect(group)
+    func makeRoundedAndBeautiful(view: UIView, shadowColor: UIColor){
+        view.layer.masksToBounds = false
+        view.layer.cornerRadius = 30
+        view.layer.cornerCurve = .continuous
+        view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
+        view.layer.shadowColor = shadowColor.cgColor
+        view.layer.shadowOffset = CGSize(width: 0, height: 1)
+        view.layer.shadowRadius = 15
+        view.layer.shadowOpacity = 0.7
+    }
+
+
+    func addParallaxToView(view: UIView, amount: Float) {
+        let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
+        horizontal.minimumRelativeValue = -amount
+        horizontal.maximumRelativeValue = amount
+
+        let vertical = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
+        vertical.minimumRelativeValue = -amount
+        vertical.maximumRelativeValue = amount
+
+        let group = UIMotionEffectGroup()
+        group.motionEffects = [horizontal, vertical]
+        view.addMotionEffect(group)
+        
+        NotificationCenter.default.addObserver(forName:  Notification.Name(rawValue: "UpdateParallax") , object: nil, queue: .main) { notification in
+            UIView.animate(withDuration: 0.25) {
+                view.removeMotionEffect(group)
+            }
         }
     }
-}
 
-func styleLabels(label: UILabel, size: Double) {
-    label.font = UIFont.systemFont(ofSize: size)
-    label.layer.masksToBounds = false
-    label.layer.shadowRadius = 2.0
-    label.layer.shadowOpacity = 0.35
-    label.layer.shadowOffset = CGSize(width: 1, height: 2)
+    func addShadowParallaxToView(view: UIView, amount: Float) {
+        let horizontal = UIInterpolatingMotionEffect(keyPath: "layer.shadowOffset.width", type: .tiltAlongHorizontalAxis)
+        horizontal.minimumRelativeValue = amount
+        horizontal.maximumRelativeValue = -amount
+
+        let vertical = UIInterpolatingMotionEffect(keyPath: "layer.shadowOffset.height", type: .tiltAlongVerticalAxis)
+        vertical.minimumRelativeValue = amount
+        vertical.maximumRelativeValue = -amount
+
+        let group = UIMotionEffectGroup()
+        group.motionEffects = [horizontal, vertical]
+        view.addMotionEffect(group)
+        
+        NotificationCenter.default.addObserver(forName:  Notification.Name(rawValue: "UpdateParallax") , object: nil, queue: .main) { notification in
+            UIView.animate(withDuration: 0.25) {
+                view.removeMotionEffect(group)
+            }
+        }
+    }
+
+    func styleLabels(label: UILabel, size: Double) {
+        label.font = UIFont.systemFont(ofSize: size)
+        label.layer.masksToBounds = false
+        label.layer.shadowRadius = 2.0
+        label.layer.shadowOpacity = 0.35
+        label.layer.shadowOffset = CGSize(width: 1, height: 2)
+    }
 }
 
 extension UIImageView {
@@ -155,3 +202,34 @@ func roundCornersForAspectFit(radius: CGFloat)
     }
 }
 
+extension UIGestureRecognizer {
+    public enum State : Int {
+        case possible = 0
+        case began = 1
+        case changed = 2
+        case ended = 3
+        case cancelled = 4
+        case failed = 5
+    }
+}
+
+extension UIViewController {
+
+func showToast(message : String, font: UIFont) {
+
+    let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 90, y: self.view.frame.size.height-100, width: self.view.frame.size.width / 2, height: 50))
+    toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+    toastLabel.textColor = UIColor.white
+    toastLabel.font = font
+    toastLabel.textAlignment = .center;
+    toastLabel.text = message
+    toastLabel.alpha = 1.0
+    toastLabel.layer.cornerRadius = 10;
+    toastLabel.clipsToBounds  =  true
+    self.view.addSubview(toastLabel)
+    UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+         toastLabel.alpha = 0.0
+    }, completion: {(isCompleted) in
+        toastLabel.removeFromSuperview()
+    })
+} }
